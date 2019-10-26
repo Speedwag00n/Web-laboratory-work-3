@@ -196,9 +196,3 @@ function updateR() {
 	document.getElementById('r-update-form:current-r').value = R;
 	document.getElementById('r-update-form:r-update-form-button').click();
 }
-
-function testtt(data) {
-	if (data.status == "complete") {
-		alert("112233");
-	}
-}
