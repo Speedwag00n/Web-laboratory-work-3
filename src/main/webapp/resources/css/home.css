@@ -120,7 +120,13 @@ label{
 	text-align: center;
 }
 
+#current-r-table th,
+#current-r-table td{
+	border-left: none;
+}
+
 .table-container{
+	font-size: 0;
 	margin-left: auto;
 	margin-right: auto;
 }
