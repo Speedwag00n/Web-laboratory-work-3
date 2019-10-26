@@ -26,17 +26,19 @@ function draw() {
 	drawAxisesSigns(canvas);
 	let R = document.getElementById('computation-form:slider-input-R').value;
 	drawPointsSigns(canvas, R);
-	let results = $("#result-table tbody tr");
-	for (var i = 0; i < results.length; i++) {
-		let X = results.eq(i).find("td").eq(0).text();
-		let Y = results.eq(i).find("td").eq(1).text();
-		let R = document.getElementById('computation-form:slider-input-R').value;
-		let originalX = toOriginalX(X, R);
-		let originalY = toOriginalY(Y, R);
-		if ($("#current-r-table tbody tr").eq(i).find("td").eq(0).text().trim() == "Да") {
-			drawPoint(canvas, originalX, originalY, "GreenYellow");
-		} else {
-			drawPoint(canvas, originalX, originalY, "Red");
+	if (!$("#result-table-container").hasClass("hidden")) {
+		let results = $("#result-table tbody tr");
+		for (var i = 0; i < results.length; i++) {
+			let X = results.eq(i).find("td").eq(0).text();
+			let Y = results.eq(i).find("td").eq(1).text();
+			let R = document.getElementById('computation-form:slider-input-R').value;
+			let originalX = toOriginalX(X, R);
+			let originalY = toOriginalY(Y, R);
+			if ($("#current-r-table tbody tr").eq(i).find("td").eq(0).text().trim() == "Да") {
+				drawPoint(canvas, originalX, originalY, "GreenYellow");
+			} else {
+				drawPoint(canvas, originalX, originalY, "Red");
+			}
 		}
 	}
 }

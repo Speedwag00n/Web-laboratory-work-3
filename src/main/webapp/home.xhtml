@@ -59,19 +59,14 @@
                             <label class="parameter-label">Y:</label>
                             <h:inputText id="Y-param" styleClass="input-param" a:placeholder="(-3 ... 5)" maxlength="10" required="true" requiredMessage="Y должен быть указан" value="#{areaChecker.y}" converterMessage="Y должен быть числом">
                                 <f:validator validatorId="ParameterYValidator"/>
-                                <f:convertNumber maxFractionDigits="0"/>
                             </h:inputText>
                             <h:message for="Y-param" id="warning-container-Y" styleClass="warning-container"/>
                         </div>
                         <div class="parameter-container">
                             <label class="parameter-label">R:</label>
                             <span class="slider-value">Текущее значение: </span>
-                            <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.r}">
-                                <f:convertNumber maxFractionDigits="0"/>
-                            </h:outputText>
-                            <h:inputText id="slider-input-R" styleClass="hidden" value="#{areaChecker.r}">
-                                <f:convertNumber maxFractionDigits="0"/>
-                            </h:inputText>
+                            <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.r}"/>
+                            <h:inputText id="slider-input-R" styleClass="hidden" value="#{areaChecker.r}"/>
                             <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1" maxValue="4" step="0.25" onSlideEnd="updateR();"/>
                         </div>
                         <div class="horizontal-centering-container button-container">
@@ -93,7 +88,7 @@
         <div id="result-container" class="horizontal-centering-container">
             <h1>История результатов</h1>
             <h:link styleClass="main-link" value="На главную" outcome="index"/>
-            <div class="table-container">
+            <div id="result-table-container" class="table-container #{empty areaChecker.points ? 'hidden' : ''}">
                 <h:dataTable id="result-table" styleClass="result-table" value="#{areaChecker.reversedPoints}" var="point">
                     <h:column>
                         <f:facet name="header">X</f:facet>
