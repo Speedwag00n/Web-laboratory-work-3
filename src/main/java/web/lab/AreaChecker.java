@@ -27,22 +27,17 @@ public class AreaChecker {
     }
 
     public void checkCanvas() {
-        System.out.println("Canvas X " + canvasX);
-        System.out.println("Canvas Y " + canvasY);
-        System.out.println("R " + r);
         check(canvasX, canvasY);
     }
 
     public void check(Double x, Double y) {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        System.out.println("Было "  + points.size());
         Point point = new Point();
         point.setX(x);
         point.setY(y);
         point.setR(r);
         point.setHit(isHit(x, y));
-        System.out.println("Startrtttrt");
         try {
             session.save(point);
             transaction.commit();
@@ -50,8 +45,8 @@ public class AreaChecker {
             reversedPoints.addFirst(point);
         } catch (Exception e) {
             transaction.rollback();
-            System.out.println("Not save " + e);
         }
+        session.close();
     }
 
     public boolean isHit(Point point) {
