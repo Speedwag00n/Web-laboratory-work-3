@@ -89,7 +89,7 @@
             <h1>История результатов</h1>
             <h:link styleClass="main-link" value="На главную" outcome="index"/>
             <div id="result-table-container" class="table-container #{empty areaChecker.points ? 'hidden' : ''}">
-                <h:dataTable id="result-table" styleClass="result-table" value="#{areaChecker.reversedPoints}" var="point">
+                <h:dataTable id="result-table" styleClass="result-table" value="#{areaChecker.points}" var="point">
                     <h:column>
                         <f:facet name="header">X</f:facet>
                         #{point.x}
@@ -107,7 +107,7 @@
                         #{point.hit ? 'Да' : 'Нет'}
                     </h:column>
                 </h:dataTable>
-                <h:dataTable id="current-r-table" styleClass="result-table" value="#{areaChecker.reversedPoints}" var="point">
+                <h:dataTable id="current-r-table" styleClass="result-table" value="#{areaChecker.points}" var="point">
                     <h:column>
                         <f:facet name="header">Попадение (для текущего R)</f:facet>
                         #{areaChecker.isHit(point) ? 'Да' : 'Нет'}

@@ -20,7 +20,6 @@ public class AreaChecker {
     private Double canvasY;
 
     private LinkedList<Point> points = new LinkedList<Point>();
-    private LinkedList<Point> reversedPoints = new LinkedList<Point>();
 
     public void checkForm() {
         check(x, y);
@@ -41,8 +40,7 @@ public class AreaChecker {
         try {
             session.save(point);
             transaction.commit();
-            points.add(point);
-            reversedPoints.addFirst(point);
+            points.addFirst(point);
         } catch (Exception e) {
             transaction.rollback();
         }
@@ -89,14 +87,6 @@ public class AreaChecker {
 
     public void setPoints(LinkedList<Point> points) {
         this.points = points;
-    }
-
-    public List<Point> getReversedPoints() {
-        return reversedPoints;
-    }
-
-    public void setReversedPoints(LinkedList<Point> reversedPoints) {
-        this.reversedPoints = reversedPoints;
     }
 
     public Double getCanvasX() {
