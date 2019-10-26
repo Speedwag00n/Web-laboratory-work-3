@@ -1,0 +1,103 @@
+body{
+	background: #242529;
+	background: radial-gradient(#777E84, #242529);
+	background: -webkit-radial-gradient(top, #777E84, #242529);
+	background: -moz-radial-gradient(top, #777E84, #242529);
+	background: -ms-radial-gradient(top, #777E84, #242529);
+	background: -o-radial-gradient(top, #777E84, #242529);
+	margin: 0;
+	background-attachment: fixed;
+}
+
+#header{
+	height: 50px;
+	font-family: monospace !important;
+	color: white !important;
+    font-size: 18px;
+	text-align: center;
+}
+
+.header-content{
+	width: 250px;
+	line-height: 50px;
+}
+
+body > div{
+	width: 65%;
+	max-width: 1200px;
+	min-width: 1050px;
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+
+	background: #777777;
+	background: -webkit-linear-gradient(45deg, #777777, #5B5B5B, #777777);
+	background: -moz-linear-gradient(45deg, #777777, #5B5B5B, #777777);
+	background: -ms-linear-gradient(45deg, #777777, #5B5B5B, #777777);
+	background: -o-linear-gradient(45deg, #777777, #5B5B5B, #777777);
+	background: linear-gradient(45deg, #777777, #5B5B5B, #777777);
+
+	border: 2px solid black;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
+
+body > div:first-child{
+	margin-top: 20px;
+}
+
+body > div:last-child{
+	margin-bottom: 20px;
+}
+
+.horizontal-centering-container{
+	text-align: center;
+}
+
+div span{
+	margin-top: auto;
+	margin-bottom: auto;
+	font-family: monospace;
+	color: white;
+}
+
+.header-left-element{
+	padding-left: 20px;
+	text-align: left;
+	float: left;
+}
+
+.header-center-element{
+	text-align: center;
+}
+
+.header-rigth-element{
+	padding-right: 20px;
+	text-align: right;
+	float: right;
+}
+
+div h1{
+	text-align: center;
+	margin: 10px 0px 10px 0px;
+	font-size: 30px;
+}
+
+h1{
+	font-family: monospace;
+	color: white;
+}
+
+.main-link{
+    display: block;
+    text-align: center;
+	font-size: 18px;
+    font-family: monospace;
+	color: white;
+	margin: 30px 0 10px 0;
+}

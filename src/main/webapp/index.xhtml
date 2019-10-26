@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+
+<f:view>
+    <h:head>
+        <title>Web-программирование, лабораторная работа #3</title>
+        <h:outputStylesheet name="base.css" library="css"/>
+        <h:outputStylesheet name="index.css" library="css"/>
+    </h:head>
+
+    <h:body>
+
+        <div id="header">
+            <span id="author-name" class="header-left-element header-content">Неманков Илья Олегович</span>
+            <span id="author-group" class="header-center-element header-content">P3211</span>
+            <span id="lab-variant" class="header-rigth-element header-content">Вариант 211015</span>
+        </div>
+
+        <div>
+            <h1>Время</h1>
+            <div id="current-time"></div>
+        </div>
+
+        <div>
+            <h1>Добро пожаловать!</h1>
+            <h:link styleClass="main-link" value="Перейти к приложению" outcome="home"/>
+        </div>
+
+        <h:outputScript library="js" name="init-clock.js" />
+    </h:body>
+</f:view>
+
+</html>

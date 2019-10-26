@@ -1,0 +1,130 @@
+#workspace-container{
+	font-size: 0;
+	vertical-align: top;
+}
+
+.workspace-item-container{
+	display: inline-block;
+	width: calc(50% - 40px);
+	margin: 0px 20px 10px 20px;
+	vertical-align: top;
+}
+
+.parameter-container, .button-container{
+	margin-bottom: 10px;
+	padding: 0px 8px 8px 8px;
+}
+
+.parameter-container{
+	text-align: center;
+}
+
+.parameter-form-container{
+	padding: 10px 5px 0px 5px;
+	border: 2px solid black;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.submit-button{
+	font-family: monospace;
+	color: white;
+	font-size: 18px;
+	background-color: #4C4C4C;
+	border: 2px solid white;
+}
+
+.submit-button:hover{
+	background-color: #0F0F0F;
+	color: #A0A0A0;
+	border: 2px solid #A0A0A0;
+	transition: 0.3s;
+}
+
+.parameter-label{
+	display: block;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0 auto 1% auto;
+}
+
+.radio-buttons{
+	width: 100%;
+}
+
+.radio-buttons td label{
+	font-size: 18px;
+	width: 25px;
+}
+
+.radio-buttons td input{
+    float:right;
+}
+
+label{
+	font-family: monospace;
+	color: white;
+}
+
+#task-chart{
+	width: 330px;
+	height: 330px;
+}
+
+.warning-container{
+	display: block;
+	font-size: 16px;
+	color: red;
+	padding-top: 10px;
+}
+
+.slider-value{
+    font-size: 20px;
+	font-family: monospace;
+	color: white;
+}
+
+.slider-bar{
+    font-size: 16px;
+    margin: 1% 5%;
+}
+
+.input-param{
+    width: 200px;
+}
+
+
+.result-table{
+	display: inline-table;
+	border-collapse: collapse;
+	font-family: monospace;
+	color: white;
+	font-size: 18px;
+
+	margin-bottom: 20px;
+}
+
+.result-table th,
+.result-table td{
+	display: table-cell;
+	text-align: left;
+	border: none;
+	border: 2px solid black;
+	vertical-align: middle;
+	padding: 5px 10px;
+	min-width: 150px;
+	text-align: center;
+}
+
+.table-container{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.hidden{
+	display: none;
+}
