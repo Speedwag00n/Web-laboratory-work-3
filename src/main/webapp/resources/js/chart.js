@@ -106,15 +106,27 @@ function drawPointsSigns(canvas, r) {
 
 	let sign;
 	rIsNumber ? sign = -r + "" : sign = "-" + r;
+	if (rIsNumber && (Math.abs(sign) - Math.floor(Math.abs(sign))) == 0) {
+		sign = Number(sign).toFixed(1);
+	}
 	context.fillText(sign, canvas.width * 0.1 - 0.5 * sign.length * signSpace, canvas.height / 2 - signSpace / 2);
 	context.fillText(sign, canvas.width / 2 + signSpace / 2, canvas.height * 0.9 + signSpace / 2);
-	rIsNumber ?sign = -r / 2 + "" : sign = "-" + r + "/2";
+	rIsNumber ? sign = -r / 2 + "" : sign = "-" + r + "/2";
+	if (rIsNumber && (Math.abs(sign) - Math.floor(Math.abs(sign))) == 0) {
+		sign = Number(sign).toFixed(1);
+	}
 	context.fillText(sign, canvas.width * 0.3 - 0.5 * sign.length * signSpace, canvas.height / 2 - signSpace / 2);
 	context.fillText(sign, canvas.width / 2 + signSpace / 2, canvas.height * 0.7 + signSpace / 2);
 	rIsNumber ? sign = r / 2 + "" : sign = r + "/2";
+	if (rIsNumber && (Math.abs(sign) - Math.floor(Math.abs(sign))) == 0) {
+		sign = Number(sign).toFixed(1);
+	}
 	context.fillText(sign, canvas.width * 0.7 - 0.5 * sign.length * signSpace, canvas.height / 2 - signSpace / 2);
 	context.fillText(sign, canvas.width / 2 + signSpace / 2, canvas.height * 0.3 + signSpace / 2);
 	sign = r + "";
+	if (rIsNumber && (Math.abs(sign) - Math.floor(Math.abs(sign))) == 0) {
+		sign = Number(sign).toFixed(1);
+	}
 	context.fillText(sign, canvas.width * 0.9 - 0.5 * sign.length * signSpace, canvas.height / 2 - signSpace / 2);
 	context.fillText(sign, canvas.width / 2 + signSpace / 2, canvas.height * 0.1 + signSpace / 2);
 }

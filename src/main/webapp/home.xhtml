@@ -69,8 +69,8 @@
                             <label class="parameter-label">R:</label>
                             <span class="slider-value">Текущее значение: </span>
                             <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.r}"/>
-                            <h:inputText id="slider-input-R" styleClass="hidden" value="#{areaChecker.r}"/>
-                            <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1" maxValue="4" step="0.25" onSlideEnd="updateR();"/>
+                            <h:inputHidden id="slider-input-R" value="#{areaChecker.r}"/>
+                            <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1.0" maxValue="4.0" step="0.25" onSlideEnd="updateR();"/>
                         </div>
                         <div class="horizontal-centering-container button-container">
                             <h:commandButton id="computation-form-button" styleClass="submit-button" actionListener="#{areaChecker.checkForm()}" value="Отправить"/>
