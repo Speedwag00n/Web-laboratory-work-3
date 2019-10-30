@@ -70,9 +70,21 @@ label{
 	color: white;
 }
 
-#task-chart{
+#task-chart,
+#task-chart-image,
+#chart-box{
 	width: 330px;
 	height: 330px;
+}
+
+#chart-box{
+	display: inline-block;
+	overflow: hidden;
+}
+
+#task-chart{
+	position: relative;
+	bottom: 100%;
 }
 
 .warning-container{
@@ -97,7 +109,6 @@ label{
     width: 200px;
 }
 
-
 .result-table{
 	display: inline-table;
 	border-collapse: collapse;
@@ -118,17 +129,6 @@ label{
 	padding: 5px 10px;
 	min-width: 150px;
 	text-align: center;
-}
-
-#current-r-table th,
-#current-r-table td{
-	border-left: none;
-}
-
-.table-container{
-	font-size: 0;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .hidden{

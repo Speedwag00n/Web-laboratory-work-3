@@ -4,9 +4,7 @@ const pointScale = 3;
 const signSpace = 9;
 const pointRadius = 1.5;
 
-const backgroundColor = "white";
 const axisesColor = "black";
-const regionColor = "#3399FF";
 const signsColor = axisesColor;
 
 const signsFont = "14px monospace";
@@ -15,71 +13,30 @@ const signsFont = "14px monospace";
 	let canvas = $("#task-chart")[0];
 	canvas.width = canvas.offsetWidth;
 	canvas.height = canvas.offsetHeight;
-	draw(canvas);
+	draw();
 }
 
 function draw() {
 	let canvas = $("#task-chart")[0];
-	drawBackground(canvas);
-	drawArea(canvas);
 	drawAxises(canvas);
 	drawAxisesSigns(canvas);
 	let R = document.getElementById('computation-form:slider-input-R').value;
 	drawPointsSigns(canvas, R);
 	if (!$("#result-table-container").hasClass("hidden")) {
 		let results = $("#result-table tbody tr");
-		for (var i = 0; i < results.length; i++) {
+		for (var i = results.length - 1; i >= 0; i--) {
 			let X = results.eq(i).find("td").eq(0).text();
 			let Y = results.eq(i).find("td").eq(1).text();
 			let R = document.getElementById('computation-form:slider-input-R').value;
 			let originalX = toOriginalX(X, R);
 			let originalY = toOriginalY(Y, R);
-			if ($("#current-r-table tbody tr").eq(i).find("td").eq(0).text().trim() == "Да") {
+			if (results.eq(i).find("td").eq(4).text().trim() == "Да") {
 				drawPoint(canvas, originalX, originalY, "GreenYellow");
 			} else {
 				drawPoint(canvas, originalX, originalY, "Red");
 			}
 		}
 	}
-}
-
-function redraw() {
-	let canvas = $("#task-chart")[0];
-	clearCanvas(canvas);
-	draw();
-}
-
-function drawBackground(canvas) {
-	let context = canvas.getContext("2d");
-	context.fillStyle = backgroundColor;
-
-	context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-function drawArea(canvas) {
-	let context = canvas.getContext("2d");
-	context.strokeStyle = regionColor;
-	context.fillStyle = regionColor;
-
-	context.beginPath();
-
-	context.moveTo(canvas.width / 2, canvas.height / 2);
-
-	context.lineTo(canvas.width / 2, canvas.height * 0.3);
-	context.lineTo(canvas.width * 0.9, canvas.height * 0.3);
-	context.lineTo(canvas.width * 0.9, canvas.height / 2);
-	context.lineTo(canvas.width / 2, canvas.height / 2);
-
-	context.lineTo(canvas.width * 0.7, canvas.height / 2);
-	context.lineTo(canvas.width / 2, canvas.height * 0.9);
-	context.lineTo(canvas.width / 2, canvas.height / 2);
-
-	context.arc(canvas.width / 2, canvas.height / 2, canvas.width * 0.2, 1/2 * Math.PI, 1 * Math.PI);
-
-
-	context.closePath();
-	context.fill();
-	context.stroke();
 }
 
 function drawAxises(canvas) {
@@ -172,11 +129,6 @@ function drawPoint(canvas, x, y, pointColor) {
 	context.closePath();
 	context.fill();
 	context.stroke();
-}
-
-function clearCanvas(canvas) {
-	let context = canvas.getContext('2d');
-	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 $("#task-chart").bind("click", click);

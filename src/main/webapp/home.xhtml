@@ -27,7 +27,10 @@
             <div id="task-chart-container" class="workspace-item-container">
                 <h1>Область</h1>
                 <div class="horizontal-centering-container">
-                    <canvas id="task-chart"></canvas>
+                    <div id="chart-box">
+                        <h:graphicImage id="task-chart-image" value="resources/img/chart-image.png"/>
+                        <canvas id="task-chart"></canvas>
+                    </div>
                     <h:form id="canvas-form">
                         <h:inputHidden id="task-chart-x" value="#{areaChecker.canvasX}"/>
                         <h:inputHidden id="task-chart-y" value="#{areaChecker.canvasY}"/>
@@ -70,17 +73,13 @@
                             <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1" maxValue="4" step="0.25" onSlideEnd="updateR();"/>
                         </div>
                         <div class="horizontal-centering-container button-container">
-                            <h:commandButton id="computation-form-button" styleClass="submit-button" actionListener="#{areaChecker.checkForm()}" value="Отправить">
-<!--                                <f:ajax event="click" onevent="testtt"/>-->
-                            </h:commandButton>
+                            <h:commandButton id="computation-form-button" styleClass="submit-button" actionListener="#{areaChecker.checkForm()}" value="Отправить"/>
                         </div>
                     </div>
                 </h:form>
                 <h:form id="r-update-form">
                     <h:inputHidden id="current-r" value="#{areaChecker.r}"/>
-                    <h:commandButton id="r-update-form-button" styleClass="hidden">
-                        <f:ajax execute="@form" render="current-r-table" onevent="redraw"/>
-                    </h:commandButton>
+                    <h:commandButton id="r-update-form-button" styleClass="hidden"/>
                 </h:form>
             </div>
         </div>
@@ -106,8 +105,6 @@
                         <f:facet name="header">Попадение</f:facet>
                         #{point.hit ? 'Да' : 'Нет'}
                     </h:column>
-                </h:dataTable>
-                <h:dataTable id="current-r-table" styleClass="result-table" value="#{areaChecker.points}" var="point">
                     <h:column>
                         <f:facet name="header">Попадение (для текущего R)</f:facet>
                         #{areaChecker.isHit(point) ? 'Да' : 'Нет'}
