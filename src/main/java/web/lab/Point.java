@@ -3,11 +3,12 @@ package web.lab;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "points")
+@Table(name = "POINTS")
 public class Point {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POINTS_SEQ")
+    @SequenceGenerator(name = "POINTS_SEQ", sequenceName = "POINTS_SEQ", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private int id;
 

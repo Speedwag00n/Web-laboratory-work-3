@@ -13,6 +13,7 @@
         <title>Web-программирование, лабораторная работа #3</title>
         <h:outputStylesheet name="base.css" library="css"/>
         <h:outputStylesheet name="home.css" library="css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/>
     </h:head>
 
     <h:body>
@@ -55,6 +56,7 @@
                                 <f:selectItem itemValue = "2" itemLabel = "2"/>
                                 <f:selectItem itemValue = "3" itemLabel = "3"/>
                                 <f:selectItem itemValue = "4" itemLabel = "4"/>
+                                <p:ajax event="valueChange"/>
                             </h:selectOneRadio>
                             <h:message for="X-param" id="warning-container-X" styleClass="warning-container"/>
                         </div>
@@ -62,24 +64,23 @@
                             <label class="parameter-label">Y:</label>
                             <h:inputText id="Y-param" styleClass="input-param" a:placeholder="(-3 ... 5)" maxlength="10" required="true" requiredMessage="Y должен быть указан" value="#{areaChecker.y}" converterMessage="Y должен быть числом">
                                 <f:validator validatorId="ParameterYValidator"/>
+                                <p:ajax event="blur" update="warning-container-Y"/>
                             </h:inputText>
                             <h:message for="Y-param" id="warning-container-Y" styleClass="warning-container"/>
                         </div>
                         <div class="parameter-container">
                             <label class="parameter-label">R:</label>
                             <span class="slider-value">Текущее значение: </span>
-                            <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.r}"/>
+                            <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.getProcessedR()}"/>
                             <h:inputHidden id="slider-input-R" value="#{areaChecker.r}"/>
-                            <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1.0" maxValue="4.0" step="0.25" onSlideEnd="updateR();"/>
+                            <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1.0" maxValue="4.0" step="0.25">
+                                <p:ajax event="slideEnd" process="slider-input-R" oncomplete="reload();"/>
+                            </p:slider>
                         </div>
                         <div class="horizontal-centering-container button-container">
                             <h:commandButton id="computation-form-button" styleClass="submit-button" actionListener="#{areaChecker.checkForm()}" value="Отправить"/>
                         </div>
                     </div>
-                </h:form>
-                <h:form id="r-update-form">
-                    <h:inputHidden id="current-r" value="#{areaChecker.r}"/>
-                    <h:commandButton id="r-update-form-button" styleClass="hidden"/>
                 </h:form>
             </div>
         </div>

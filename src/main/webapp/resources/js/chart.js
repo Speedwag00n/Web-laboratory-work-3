@@ -14,6 +14,7 @@ const signsFont = "14px monospace";
 	canvas.width = canvas.offsetWidth;
 	canvas.height = canvas.offsetHeight;
 	draw();
+	$("#task-chart").bind("click", click);
 }
 
 function draw() {
@@ -143,8 +144,6 @@ function drawPoint(canvas, x, y, pointColor) {
 	context.stroke();
 }
 
-$("#task-chart").bind("click", click);
-
 function click(event) {
 	let canvas = event.target;
 
@@ -161,4 +160,9 @@ function updateR() {
 	let R = document.getElementById('computation-form:slider-input-R').value;
 	document.getElementById('r-update-form:current-r').value = R;
 	document.getElementById('r-update-form:r-update-form-button').click();
+}
+
+function reload() {
+	var loc = window.location;
+	window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
 }
