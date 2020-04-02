@@ -166,6 +166,8 @@ public class AreaChecker implements Serializable {
 
     /**
      * Gets R value without fraction if it's digit.
+     *
+     * @return R without fraction if it's digit.
      */
     public String getProcessedR() {
         if (r % 1 != 0) {
