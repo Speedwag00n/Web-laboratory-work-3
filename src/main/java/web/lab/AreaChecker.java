@@ -1,16 +1,19 @@
 package web.lab;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 @ManagedBean
 @SessionScoped
-public class AreaChecker {
+public class AreaChecker implements Serializable {
+
+    private static final long serialVersionUID = -3982895170546874882L;
 
     private Double x;
     private Double y;
@@ -21,6 +24,9 @@ public class AreaChecker {
 
     private LinkedList<Point> points = new LinkedList<Point>();
 
+    public AreaChecker() {
+    }
+
     public void checkForm() {
         check(x, y);
     }
@@ -30,21 +36,21 @@ public class AreaChecker {
     }
 
     public void check(Double x, Double y) {
-        Session session = HibernateUtils.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        EntityManager entityManager = HibernateUtils.getInstance().createEntityManager();
+        entityManager.getTransaction().begin();
         Point point = new Point();
         point.setX(x);
         point.setY(y);
         point.setR(r);
         point.setHit(isHit(x, y));
         try {
-            session.save(point);
-            transaction.commit();
+            entityManager.persist(point);
+            entityManager.getTransaction().commit();
             points.addFirst(point);
         } catch (Exception e) {
-            transaction.rollback();
+            entityManager.getTransaction().rollback();
         }
-        session.close();
+        entityManager.close();
     }
 
     public boolean isHit(Point point) {
@@ -128,6 +134,14 @@ public class AreaChecker {
 
     public void setR(Double r) {
         this.r = r;
+    }
+
+    public String getProcessedR() {
+        if (r % 1 != 0) {
+            return r + "";
+        } else {
+            return ((int)r.doubleValue()) + "";
+        }
     }
 
     public List<Point> getPoints() {

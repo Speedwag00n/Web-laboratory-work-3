@@ -13,6 +13,7 @@
         <title>Web-программирование, лабораторная работа #3</title>
         <h:outputStylesheet name="base.css" library="css"/>
         <h:outputStylesheet name="home.css" library="css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/>
     </h:head>
 
     <h:body>
@@ -32,9 +33,10 @@
                         <canvas id="task-chart"></canvas>
                     </div>
                     <h:form id="canvas-form">
+                        <p:poll interval="5" update=":result-form" oncomplete="redraw();"/>
                         <h:inputHidden id="task-chart-x" value="#{areaChecker.canvasX}"/>
                         <h:inputHidden id="task-chart-y" value="#{areaChecker.canvasY}"/>
-                        <h:commandButton id="canvas-form-button" styleClass="hidden" actionListener="#{areaChecker.checkCanvas()}"/>
+                        <p:commandButton id="canvas-form-button" styleClass="hidden" action="#{areaChecker.checkCanvas}" update=":result-form" oncomplete="redraw();"/>
                     </h:form>
                     <span id="warning-container-chart" class="warning-container"></span>
                 </div>
@@ -55,6 +57,7 @@
                                 <f:selectItem itemValue = "2" itemLabel = "2"/>
                                 <f:selectItem itemValue = "3" itemLabel = "3"/>
                                 <f:selectItem itemValue = "4" itemLabel = "4"/>
+                                <p:ajax event="valueChange" update="warning-container-X"/>
                             </h:selectOneRadio>
                             <h:message for="X-param" id="warning-container-X" styleClass="warning-container"/>
                         </div>
@@ -62,24 +65,23 @@
                             <label class="parameter-label">Y:</label>
                             <h:inputText id="Y-param" styleClass="input-param" a:placeholder="(-3 ... 5)" maxlength="10" required="true" requiredMessage="Y должен быть указан" value="#{areaChecker.y}" converterMessage="Y должен быть числом">
                                 <f:validator validatorId="ParameterYValidator"/>
+                                <p:ajax event="blur" update="warning-container-Y"/>
                             </h:inputText>
                             <h:message for="Y-param" id="warning-container-Y" styleClass="warning-container"/>
                         </div>
                         <div class="parameter-container">
                             <label class="parameter-label">R:</label>
                             <span class="slider-value">Текущее значение: </span>
-                            <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.r}"/>
+                            <h:outputText styleClass="slider-value" id="slider-output-R" value="#{areaChecker.getProcessedR()}"/>
                             <h:inputHidden id="slider-input-R" value="#{areaChecker.r}"/>
-                            <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1.0" maxValue="4.0" step="0.25" onSlideEnd="updateR();"/>
+                            <p:slider styleClass="slider-bar" for="slider-input-R" display="slider-output-R" displayTemplate="{value}" minValue="1.0" maxValue="4.0" step="0.25">
+                                <p:ajax event="slideEnd" process="slider-input-R" update=":result-form" oncomplete="redraw();"/>
+                            </p:slider>
                         </div>
                         <div class="horizontal-centering-container button-container">
-                            <h:commandButton id="computation-form-button" styleClass="submit-button" actionListener="#{areaChecker.checkForm()}" value="Отправить"/>
+                            <p:commandButton id="computation-form-button" styleClass="submit-button" action="#{areaChecker.checkForm}" update="warning-container-X warning-container-Y :result-form" value="Отправить"  oncomplete="redraw();"/>
                         </div>
                     </div>
-                </h:form>
-                <h:form id="r-update-form">
-                    <h:inputHidden id="current-r" value="#{areaChecker.r}"/>
-                    <h:commandButton id="r-update-form-button" styleClass="hidden"/>
                 </h:form>
             </div>
         </div>
@@ -87,30 +89,32 @@
         <div id="result-container" class="horizontal-centering-container">
             <h1>История результатов</h1>
             <h:link styleClass="main-link" value="На главную" outcome="index"/>
-            <div id="result-table-container" class="table-container #{empty areaChecker.points ? 'hidden' : ''}">
-                <h:dataTable id="result-table" styleClass="result-table" value="#{areaChecker.points}" var="point">
-                    <h:column>
-                        <f:facet name="header">X</f:facet>
-                        #{point.x}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Y</f:facet>
-                        #{point.y}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">R</f:facet>
-                        #{point.r}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Попадение</f:facet>
-                        #{point.hit ? 'Да' : 'Нет'}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Попадение (для текущего R)</f:facet>
-                        #{areaChecker.isHit(point) ? 'Да' : 'Нет'}
-                    </h:column>
-                </h:dataTable>
-            </div>
+            <h:form id="result-form" prependId="false">
+                <div id="result-table-container" class="table-container #{empty areaChecker.points ? 'hidden' : ''}">
+                    <h:dataTable id="result-table" styleClass="result-table" value="#{areaChecker.points}" var="point">
+                        <h:column>
+                            <f:facet name="header">X</f:facet>
+                            #{point.x}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Y</f:facet>
+                            #{point.y}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">R</f:facet>
+                            #{point.r}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Попадение</f:facet>
+                            #{point.hit ? 'Да' : 'Нет'}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Попадение (для текущего R)</f:facet>
+                            #{areaChecker.isHit(point) ? 'Да' : 'Нет'}
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </h:form>
         </div>
 
         <h:outputScript library="js" name="utils.js" />

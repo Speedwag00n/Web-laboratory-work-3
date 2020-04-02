@@ -14,6 +14,13 @@ const signsFont = "14px monospace";
 	canvas.width = canvas.offsetWidth;
 	canvas.height = canvas.offsetHeight;
 	draw();
+	$("#task-chart").bind("click", click);
+}
+
+function clear() {
+	let canvas = $("#task-chart")[0];
+	let context = canvas.getContext("2d");
+	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function draw() {
@@ -36,6 +43,21 @@ function draw() {
 				drawPoint(canvas, originalX, originalY, "Red");
 			}
 		}
+	}
+}
+
+function addLastPoint() {
+	let canvas = $("#task-chart")[0];
+	let results = $("#result-table tbody tr");
+	let X = results.eq(0).find("td").eq(0).text();
+	let Y = results.eq(0).find("td").eq(1).text();
+	let R = document.getElementById('computation-form:slider-input-R').value;
+	let originalX = toOriginalX(X, R);
+	let originalY = toOriginalY(Y, R);
+	if (results.eq(0).find("td").eq(4).text().trim() == "Да") {
+		drawPoint(canvas, originalX, originalY, "GreenYellow");
+	} else {
+		drawPoint(canvas, originalX, originalY, "Red");
 	}
 }
 
@@ -143,8 +165,6 @@ function drawPoint(canvas, x, y, pointColor) {
 	context.stroke();
 }
 
-$("#task-chart").bind("click", click);
-
 function click(event) {
 	let canvas = event.target;
 
@@ -161,4 +181,9 @@ function updateR() {
 	let R = document.getElementById('computation-form:slider-input-R').value;
 	document.getElementById('r-update-form:current-r').value = R;
 	document.getElementById('r-update-form:r-update-form-button').click();
+}
+
+function redraw() {
+	clear();
+	draw();
 }

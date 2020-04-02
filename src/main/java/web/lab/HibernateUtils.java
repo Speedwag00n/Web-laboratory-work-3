@@ -1,27 +1,18 @@
 package web.lab;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-import javax.faces.context.FacesContext;
-import java.io.File;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class HibernateUtils {
 
-    private static SessionFactory instance;
-
+    private static EntityManagerFactory entityManagerFactory;
     static {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(Point.class);
-            instance = configuration.configure().buildSessionFactory();
-        } catch (Exception e) {
-
-        }
+        entityManagerFactory = Persistence.createEntityManagerFactory("default");
     }
 
-    public static SessionFactory getSessionFactory() {
-        return instance;
+
+    public static EntityManagerFactory getInstance(){
+        return entityManagerFactory;
     }
 
 }

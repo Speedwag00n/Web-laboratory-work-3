@@ -1,13 +1,20 @@
 package web.lab;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "points")
-public class Point {
+@Table(name = "POINTS")
+@DynamicInsert
+public class Point implements Serializable {
+
+    private static final long serialVersionUID = 8180254973636155637L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POINTS_SEQ")
+    @SequenceGenerator(name = "POINTS_SEQ", sequenceName = "POINTS_SEQ", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private int id;
 
