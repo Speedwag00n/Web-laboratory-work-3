@@ -9,6 +9,13 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * AreaChecker contains state of point form. Also it contains methods to save points and methods to check point hits area or not.
+ *
+ * @author Nemankov Ilia
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @ManagedBean
 @SessionScoped
 public class AreaChecker implements Serializable {
@@ -34,15 +41,21 @@ public class AreaChecker implements Serializable {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /**
+     * Checks new point hit which data was specified via form and save.
+     */
     public void checkForm() {
         check(x, y);
     }
 
+    /**
+     * Checks new point hit which data was specified via click on canvas and save.
+     */
     public void checkCanvas() {
         check(canvasX, canvasY);
     }
 
-    public void check(Double x, Double y) {
+    private void check(Double x, Double y) {
         Point point = new Point();
         point.setX(x);
         point.setY(y);
@@ -62,6 +75,12 @@ public class AreaChecker implements Serializable {
         }
     }
 
+    /**
+     * Checks is point hits area or not.
+     *
+     * @param point which hit is checking.
+     * @return true if point hits area else returns false.
+     */
     public boolean isHit(Point point) {
         return isHit(point.getX(), point.getY());
     }
@@ -145,6 +164,9 @@ public class AreaChecker implements Serializable {
         this.r = r;
     }
 
+    /**
+     * Gets R value without fraction if it's digit.
+     */
     public String getProcessedR() {
         if (r % 1 != 0) {
             return r + "";

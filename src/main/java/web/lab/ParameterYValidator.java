@@ -7,6 +7,13 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+/**
+ * This class is a custom Validator for Y field which is text input.
+ *
+ * @author Nemankov Ilia
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @FacesValidator(value = "ParameterYValidator")
 public class ParameterYValidator implements Validator {
 
