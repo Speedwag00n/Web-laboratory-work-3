@@ -15,11 +15,11 @@ public class ParameterYValidator implements Validator {
         try {
             double parsedValue = Double.parseDouble(value.toString());
             if (!(parsedValue > -3 && parsedValue < 5)) {
-                FacesMessage message = new FacesMessage("Введено некорректное значение Y", "Y должен входить в диапазон (-3 ... 5)");
+                FacesMessage message = new FacesMessage("Y должен входить в диапазон (-3 ... 5)", "Y должен входить в диапазон (-3 ... 5)");
                 throw new ValidatorException(message);
             }
         } catch (NumberFormatException e) {
-            FacesMessage message = new FacesMessage("Введено некорректное значение Y", "Y должен быть числом");
+            FacesMessage message = new FacesMessage("Y должен быть числом", "Y должен быть числом");
             throw new ValidatorException(message);
         }
     }

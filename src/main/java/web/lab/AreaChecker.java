@@ -24,7 +24,14 @@ public class AreaChecker implements Serializable {
 
     private LinkedList<Point> points = new LinkedList<Point>();
 
+    private EntityManagerFactory entityManagerFactory;
+
     public AreaChecker() {
+        entityManagerFactory = HibernateUtils.getInstance();
+    }
+
+    public AreaChecker(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     public void checkForm() {
@@ -36,21 +43,23 @@ public class AreaChecker implements Serializable {
     }
 
     public void check(Double x, Double y) {
-        EntityManager entityManager = HibernateUtils.getInstance().createEntityManager();
-        entityManager.getTransaction().begin();
         Point point = new Point();
         point.setX(x);
         point.setY(y);
         point.setR(r);
         point.setHit(isHit(x, y));
-        try {
-            entityManager.persist(point);
-            entityManager.getTransaction().commit();
-            points.addFirst(point);
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+        if (entityManagerFactory != null) {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            try {
+                entityManager.persist(point);
+                entityManager.getTransaction().commit();
+                points.addFirst(point);
+            } catch (Exception e) {
+                entityManager.getTransaction().rollback();
+            }
+            entityManager.close();
         }
-        entityManager.close();
     }
 
     public boolean isHit(Point point) {
@@ -61,7 +70,7 @@ public class AreaChecker implements Serializable {
         double ax = r / 7.0;
         double ay = r / 6.0;
 
-        boolean ellipse = (Math.pow(x, 2)) / (49 * Math.pow(ax, 2)) + (Math.pow(y, 2)) / (9 * Math.pow(ay, 2)) - 1.0 <= 0;
+        boolean ellipse = (Math.pow(x, 2)) / (49 * Math.pow(ax, 2)) + (Math.pow(y, 2)) / (9 * Math.pow(ay, 2)) - 1.0 <= 0.0001;
         boolean ellipseBottomX = (Math.abs(x / ax)) >= 4;
         boolean ellipseBottomY = (y / ay >= -3 * Math.sqrt(33) / 7.0) && (y / ay <= 0);
         boolean ellipseTopX = (Math.abs(x / ax)) >= 3;
