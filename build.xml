@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project name="Lab3" default="compile">
+
+    <property file="build.properties"/>
+
+    <path id="classpath">
+        <fileset dir="${webapp.dir}/${libs.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="${compile.dir}/${classes.dir}"/>
+        <javac fork="true" executable="${javac.path}" destdir="${compile.dir}/${classes.dir}" includeantruntime="false" srcdir="${src.dir}">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <target depends="compile" name="build">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${metainf.prepared.dir}"/>
+        <copy todir="${metainf.prepared.dir}">
+            <fileset dir="${metainf.original.dir}" includes="*"/>
+        </copy>
+        <jar basedir="${compile.dir}" jarfile="${artifact.path}">
+            <fileset dir="${webapp.dir}" includes="**" excludes="${libs.dir}/junit*.jar"/>
+            <fileset dir="${compile.dir}" includes="WEB-INF"/>
+            <manifest>
+                <attribute name="Packcage-version" value="${project.version}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${compile.dir}"/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${javadoc.dir}"/>
+        <delete dir="${report.dir}"/>
+    </target>
+
+    <target depends="build" name="test">
+        <mkdir dir="${report.dir}"/>
+        <junit haltonfailure="yes">
+            <classpath refid="classpath"/>
+            <classpath location="${compile.dir}/${classes.dir}"/>
+
+            <test name="web.lab.TestsValidator" todir="${report.dir}">
+                <formatter type="plain"/>
+                <formatter type="xml"/>
+            </test>
+            <test name="web.lab.TestsChecker" todir="${report.dir}">
+                <formatter type="plain"/>
+                <formatter type="xml"/>
+            </test>
+        </junit>
+    </target>
+
+    <target depends="compile" name="doc">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${metainf.prepared.dir}"/>
+        <copy todir="${metainf.prepared.dir}">
+            <fileset dir="${metainf.original.dir}" includes="*"/>
+        </copy>
+        <mkdir dir="${javadoc.dir}"/>
+        <javadoc sourcepath="${src.dir}/main/java" destdir="${javadoc.dir}/javadoc">
+            <classpath refid="classpath"/>
+        </javadoc>
+        <mkdir dir="${hashes.dir}"/>
+        <checksum todir="${hashes.dir}" totalproperty="MD5-hash">
+            <fileset dir="${src.dir}"/>
+        </checksum>
+        <checksum todir="${hashes.dir}" algorithm="SHA-1" totalproperty="SHA-1-hash">
+            <fileset dir="${src.dir}"/>
+        </checksum>
+        <jar basedir="${compile.dir}" jarfile="${artifact.path}">
+            <fileset dir="${webapp.dir}" includes="**" excludes="WEB-INF/lib/junit*.jar"/>
+            <fileset dir="${compile.dir}" includes="WEB-INF"/>
+            <fileset dir="${javadoc.dir}" includes="**"/>
+            <manifest>
+                <attribute name="Packcage-version" value="${project.version}"/>
+                <attribute name="MD5" value="${MD5-hash}"/>
+                <attribute name="SHA-1" value="${SHA-1-hash}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target depends="test" name="report">
+        <exec executable="git">
+            <arg value="add"/>
+            <arg value="${report.dir}/*.xml"/>
+        </exec>
+        <exec executable="git">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="'Update tests reports'"/>
+        </exec>
+    </target>
+</project>
