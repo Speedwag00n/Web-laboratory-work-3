@@ -1,16 +1,21 @@
 package web.lab;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
-public class TestsChecker extends TestCase {
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+public class TestsChecker {
 
     private AreaChecker checker;
 
-    @Override
-    public void setUp() {
+    @Before
+    public void initTest() {
         checker = new AreaChecker(null);
     }
 
+    @Test
     public void test_checker_center_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -19,6 +24,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_left_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -27,6 +33,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_left_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -35,6 +42,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_right_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -43,6 +51,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_right_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -51,6 +60,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_left_top_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -59,6 +69,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_left_top_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -67,6 +78,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_right_top_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -75,6 +87,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_right_top_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -83,6 +96,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_left_bottom_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -91,6 +105,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_left_bottom_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -99,6 +114,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_right_bottom_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -107,6 +123,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ellipse_right_bottom_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -115,6 +132,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_tail_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -123,6 +141,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_tail_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -131,6 +150,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ear_left_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -139,6 +159,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ear_left_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -147,6 +168,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ear_right_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -155,6 +177,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ear_right_not_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -163,6 +186,7 @@ public class TestsChecker extends TestCase {
         assertFalse(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_head_hit(){
         checker.setR(1d);
         Point point = new Point();
@@ -171,6 +195,7 @@ public class TestsChecker extends TestCase {
         assertTrue(checker.isHit(point));
     }
 
+    @Test
     public void test_checker_ear_head_hit(){
         checker.setR(1d);
         Point point = new Point();
